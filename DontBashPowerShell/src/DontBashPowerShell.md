@@ -9,7 +9,7 @@ paginate: true # Show page numbers on slides.
 
 # Don't Bash, PowerShell!
 
-## An intro to PowerShell
+## An introduction to PowerShell; Why and when to use it
 
 By Daniel Schroeder
 
@@ -30,12 +30,17 @@ Quick tidbits:
 - Supports both interactive use and scripting.
 - Is case insensitive.
 - Is object-oriented, meaning it works with objects rather than just text.
+- Can be used both dynamically and strongly typed
+- Pipeline to allow for chaining commands together, and passing objects downstream before fully processing all objects (similar to `yield return x` in C#)
 
 
 
 Unintuitive things to watch out for:
 - $_ is the built-in pipeline variable. Alias is $PSItem.
 - Terminating vs. non-terminating errors. Use try/catch and $ErrorActionPreference to control behavior.
+- Automatic unrolling of arrays in certain contexts (e.g. when returning an array)
+- Set-StrictMode to enforce stricter coding practices and catch common mistakes.
+- ForEach-Object vs. foreach loop differences (e.g. ForEach-Object processes items one at a time, while foreach loop processes all items at once)
 
 
 
