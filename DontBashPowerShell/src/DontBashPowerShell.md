@@ -20,12 +20,10 @@ By Daniel Schroeder
 
 ---
 
-Another page
+## Quick tidbits
 
-
-Quick tidbits:
 - PowerShell is cross-platform (Windows, Linux, macOS).
-- PowerShell is built on .NET, which allows for powerful scripting and automation capabilities.
+- PowerShell is built on .NET, and you can use .NET methods.
 - Uses Verb-Noun naming convention for cmdlets (e.g., Get-Process, Set-Item).
 - Supports both interactive use and scripting.
 - Is case insensitive.
@@ -33,18 +31,30 @@ Quick tidbits:
 - Can be used both dynamically and strongly typed
 - Pipeline to allow for chaining commands together, and passing objects downstream before fully processing all objects (similar to `yield return x` in C#)
 
+---
 
+## What makes PowerShell awesome?
+
+- Uses objects instead of text parsing.
+- Tab completion for cmdlets and parameters.
+- Rich set of built-in cmdlets out-of-the-box.
+- Tons of community modules available via PowerShell Gallery.
+- Loads of documentation and a great, supportive community.
+
+---
 
 Unintuitive things to watch out for:
+
 - $_ is the built-in pipeline variable. Alias is $PSItem.
 - Terminating vs. non-terminating errors. Use try/catch and $ErrorActionPreference to control behavior.
 - Automatic unrolling of arrays in certain contexts (e.g. when returning an array)
 - Set-StrictMode to enforce stricter coding practices and catch common mistakes.
 - ForEach-Object vs. foreach loop differences (e.g. ForEach-Object processes items one at a time, while foreach loop processes all items at once)
 
-
+---
 
 Comparison examples:
+
 - curl vs. Invoke-WebRequest or Invoke-RestMethod
 - ls vs. Get-ChildItem
 - cat vs. Get-Content
@@ -52,13 +62,17 @@ Comparison examples:
 - xargs vs. ForEach-Object
 - find vs. Get-ChildItem -Recurse
 
+---
 
 When to use Bash instead of PowerShell:
+
 - Mostly Linux administration tasks, especially if you can't guarantee PowerShell is installed.
 - Dockerfiles where you don't want to add PowerShell as a dependency, as it's a larger image
 
+---
 
 Downsides of PowerShell:
+
 - Requires installation on non-Windows platforms, which can be a barrier in some environments.
 - Windows PowerShell vs. PowerShell Core
 - Dependency on .NET versions
