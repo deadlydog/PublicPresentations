@@ -16,7 +16,25 @@ By Daniel Schroeder
 ---
 <!-- paginate: true -->
 
+## About Dan Schroeder
+
+---
+
+## Audience Survey
+
+1. How many of you have used PowerShell before?
+1. How many of you have used Bash before?
+1. How many of you have programmed in .NET before? e.g. C# or F#
+
+---
+
 ## What is PowerShell?
+
+- What do you think PowerShell is? What do you think it's used for?
+- Command-line shell
+- Scripting language enabling automation
+- Developed by Microsoft
+- Open-source and cross-platform (Windows, MacOS, Linux)
 
 ---
 
