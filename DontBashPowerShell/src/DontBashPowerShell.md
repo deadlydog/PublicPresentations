@@ -48,6 +48,8 @@ By Daniel Schroeder
 - Is object-oriented, meaning it works with objects rather than just text.
 - Can be used both dynamically and strongly typed
 - Pipeline to allow for chaining commands together, and passing objects downstream before fully processing all objects (similar to `yield return x` in C#)
+- $PROFILE to run a script at startup to customize your environment (e.g. add aliases, functions, import modules, etc.)
+- Extension is `.ps1` for PowerShell scripts, and `.psm1` for modules.
 
 ---
 
@@ -61,7 +63,7 @@ By Daniel Schroeder
 
 ---
 
-Unintuitive things to watch out for:
+## Unintuitive things to watch out for:
 
 - $_ is the built-in pipeline variable. Alias is $PSItem.
 - Terminating vs. non-terminating errors. Use try/catch and $ErrorActionPreference to control behavior.
@@ -71,25 +73,53 @@ Unintuitive things to watch out for:
 
 ---
 
-Comparison examples:
+## Bash
 
-- curl vs. Invoke-WebRequest or Invoke-RestMethod
-- ls vs. Get-ChildItem
-- cat vs. Get-Content
-- grep vs. Select-String
-- xargs vs. ForEach-Object
-- find vs. Get-ChildItem -Recurse
+- Script starts with a shebang, `#!/bin/bash`, to specify the interpreter, as has extension `.sh`.
+- Uses text-based output, so you often need to use tools like `awk`, `sed`, `grep` to parse output.
+- Uses pipes to chain commands together, passing text output from one command to the next.
 
 ---
 
-When to use Bash instead of PowerShell:
+## Comparison examples:
+
+PowerShell has default aliases many (but not all) common Bash commands, such as:
+
+- ls vs. Get-ChildItem
+- cat vs. Get-Content
+- grep vs. Select-String
+- mv vs. Move-Item
+- rm vs. Remove-Item
+- pwd vs. Get-Location
+- echo vs. Write-Output
+- touch vs. New-Item -ItemType File
+- mkdir vs. New-Item -ItemType Directory
+- find vs. Get-ChildItem -Recurse
+
+Use `Get-Alias` to see all aliases, and `Get-Command` to see all cmdlets.
+
+These are the equivalent commands for common Bash commands that do not share an alias in PowerShell:
+
+- curl vs. Invoke-WebRequest or Invoke-RestMethod
+- chmod vs. Set-ACL
+- sudo vs. Start-Process -Verb RunAs
+- xargs vs. ForEach-Object
+- awk/sed vs. -replace operator or regex methods in PowerShell
+- diff vs. Compare-Object
+- tar vs. Compress-Archive and Expand-Archive
+
+If just calling other CLIs without parsing output, the 2 are very similar; just a series of CLI calls. The differences become more apparent when you need to parse output, as PowerShell's object-oriented nature allows you to work with structured data rather than just text.
+
+---
+
+## When to use Bash instead of PowerShell:
 
 - Mostly Linux administration tasks, especially if you can't guarantee PowerShell is installed.
 - Dockerfiles where you don't want to add PowerShell as a dependency, as it's a larger image
 
 ---
 
-Downsides of PowerShell:
+## Downsides of PowerShell:
 
 - Requires installation on non-Windows platforms, which can be a barrier in some environments.
 - Windows PowerShell vs. PowerShell Core
