@@ -48,7 +48,7 @@ By Daniel Schroeder
 - Is object-oriented, meaning it works with objects rather than just text.
 - Can be used both dynamically and strongly typed
 - Pipeline to allow for chaining commands together, and passing objects downstream before fully processing all objects (similar to `yield return x` in C#)
-- $PROFILE to run a script at startup to customize your environment (e.g. add aliases, functions, import modules, etc.)
+- Use `$PROFILE` to run a script at startup to customize your environment (e.g. add aliases, functions, import modules, etc.)
 - Extension is `.ps1` for PowerShell scripts, and `.psm1` for modules.
 
 ---
@@ -63,7 +63,12 @@ By Daniel Schroeder
 
 ---
 
-## Unintuitive things to watch out for:
+- Can interactively run code against a remote server using `Invoke-Command` or `Enter-PSSession`.
+- Great for running code against many servers or Virtual Machines at once.
+
+---
+
+## Unintuitive things to watch out for
 
 - $_ is the built-in pipeline variable. Alias is $PSItem.
 - Terminating vs. non-terminating errors. Use try/catch and $ErrorActionPreference to control behavior.
@@ -81,12 +86,27 @@ By Daniel Schroeder
 
 ---
 
-## Comparison examples:
+## Other shells
+
+There are many other shells besides PowerShell and Bash, each with its own features and use cases. Some popular ones include:
+
+- sh (Bourne shell)
+- zsh (Z shell)
+- fish (Friendly Interactive Shell)
+- csh (C shell)
+- ksh (Korn shell)
+- ...
+All, slightly different syntax and features.
+
+---
+
+## Comparison examples
 
 PowerShell has default aliases many (but not all) common Bash commands, such as:
 
 - ls vs. Get-ChildItem
 - cat vs. Get-Content
+- less vs. Get-Content -Wait
 - grep vs. Select-String
 - mv vs. Move-Item
 - rm vs. Remove-Item
@@ -95,8 +115,11 @@ PowerShell has default aliases many (but not all) common Bash commands, such as:
 - touch vs. New-Item -ItemType File
 - mkdir vs. New-Item -ItemType Directory
 - find vs. Get-ChildItem -Recurse
+- locate vs. Get-ChildItem -Recurse
 
 Use `Get-Alias` to see all aliases, and `Get-Command` to see all cmdlets.
+
+Can also create your own aliases with `Set-Alias` or functions for more complex behavior.
 
 These are the equivalent commands for common Bash commands that do not share an alias in PowerShell:
 
@@ -112,14 +135,14 @@ If just calling other CLIs without parsing output, the 2 are very similar; just 
 
 ---
 
-## When to use Bash instead of PowerShell:
+## When to use Bash instead of PowerShell
 
 - Mostly Linux administration tasks, especially if you can't guarantee PowerShell is installed.
 - Dockerfiles where you don't want to add PowerShell as a dependency, as it's a larger image
 
 ---
 
-## Downsides of PowerShell:
+## Downsides of PowerShell
 
 - Requires installation on non-Windows platforms, which can be a barrier in some environments.
 - Windows PowerShell vs. PowerShell Core
