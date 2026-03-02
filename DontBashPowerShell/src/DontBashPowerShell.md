@@ -22,9 +22,10 @@ By Daniel Schroeder
 
 ## Audience Survey
 
-1. How many of you have used PowerShell before?
-1. How many of you have used Bash before?
-1. How many of you have programmed in .NET before? e.g. C# or F#
+1. Who has used PowerShell before?
+1. Who has used Bash before?
+1. Who has not used either PowerShell or Bash before?
+1. Who has programmed in .NET before? e.g. C#, F#, VS.NET, PowerShell
 
 ---
 
