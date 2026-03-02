@@ -50,6 +50,7 @@ By Daniel Schroeder
 - Pipeline to allow for chaining commands together, and passing objects downstream before fully processing all objects (similar to `yield return x` in C#)
 - Use `$PROFILE` to run a script at startup to customize your environment (e.g. add aliases, functions, import modules, etc.)
 - Extension is `.ps1` for PowerShell scripts, and `.psm1` for modules.
+- VS Code is the preferred editor for PowerShell script development, with the PowerShell extension providing rich editing features and integrated terminal.
 
 ---
 
@@ -63,6 +64,7 @@ By Daniel Schroeder
 
 ---
 
+- `-like` and `-match` operators for wildcard and regex pattern matching respectively.
 - Can interactively run code against a remote server using `Invoke-Command` or `Enter-PSSession`.
 - Great for running code against many servers or Virtual Machines at once.
 
@@ -97,6 +99,8 @@ There are many other shells besides PowerShell and Bash, each with its own featu
 - ksh (Korn shell)
 - ...
 All, slightly different syntax and features.
+
+Also, some Docker images do not have all tools installed. e.g. the hardened Alpine image does not have include `ls` or `cat`, so you have to use `find` instead. PowerShell's built-in cmdlets are always available, regardless of the underlying OS or image, as long as PowerShell is installed.
 
 ---
 
