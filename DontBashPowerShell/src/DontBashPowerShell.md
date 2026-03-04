@@ -57,11 +57,14 @@ By Daniel Schroeder
 
 ## What makes PowerShell awesome?
 
-- Uses objects instead of text parsing.
+- Uses objects (properties and methods) instead of text parsing.
+- Dynamic and strongly typed, so you can choose the level of type safety you want.
+- Can add custom properties and methods to any object on the fly.
 - Tab completion for cmdlets and parameters.
 - Rich set of built-in cmdlets out-of-the-box.
 - Tons of community modules available via PowerShell Gallery.
 - Loads of documentation and a great, supportive community.
+- Can use PS2EXE module to compile scripts into standalone executables.
 
 ---
 
@@ -86,6 +89,24 @@ By Daniel Schroeder
 - Script starts with a shebang, `#!/bin/bash`, to specify the interpreter, as has extension `.sh`.
 - Uses text-based output, so you often need to use tools like `awk`, `sed`, `grep` to parse output.
 - Uses pipes to chain commands together, passing text output from one command to the next.
+- Must use associative arrays to create structured data.
+
+```bash
+#!/bin/bash
+
+# Declare an associative array
+declare -A user
+
+# Assign properties
+user[name]="John Doe"
+user[id]=12345
+user[role]="Admin"
+
+# Access properties
+echo "User Name: ${user[name]}"
+echo "User ID: ${user[id]}"
+echo "User Role: ${user[role]}"
+```
 
 ---
 
@@ -143,7 +164,17 @@ If just calling other CLIs without parsing output, the 2 are very similar; just 
 ## When to use Bash instead of PowerShell
 
 - Mostly Linux administration tasks, especially if you can't guarantee PowerShell is installed.
-- Dockerfiles where you don't want to add PowerShell as a dependency, as it's a larger image
+- Dockerfiles where you don't want to add PowerShell as a dependency, as it's a larger image.
+- When it makes sense. e.g. it's a team/company standard, or existing code base is already Bash.
+
+It's great to know _BOTH_ PowerShell and Bash!
+
+---
+
+## When to use C# (or other) instead of PowerShell
+
+- For more complex applications, especially those that require a GUI or need to be compiled for performance.
+- When you want to create a reusable library or API that can be consumed by other applications.
 
 ---
 
@@ -153,3 +184,4 @@ If just calling other CLIs without parsing output, the 2 are very similar; just 
 - Windows PowerShell vs. PowerShell Core
 - Dependency on .NET versions
   - Requires removing old .NET versions when they fall out of support.
+- No compiler, so typos and syntax errors are often only caught at runtime.
