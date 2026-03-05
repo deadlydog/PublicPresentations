@@ -37,6 +37,11 @@ By Daniel Schroeder
 - Developed by Microsoft
 - Open-source and cross-platform (Windows, MacOS, Linux)
 
+- Easy to get started with, with one-liners
+- Eventually stitch those together into scripts
+- Later move those into functions
+- Finally, create modules to share and reuse code across projects and teams
+
 ---
 
 ## Quick tidbits
@@ -52,6 +57,7 @@ By Daniel Schroeder
 - Use `$PROFILE` to run a script at startup to customize your environment (e.g. add aliases, functions, import modules, etc.)
 - Extension is `.ps1` for PowerShell scripts, and `.psm1` for modules.
 - VS Code is the preferred editor for PowerShell script development, with the PowerShell extension providing rich editing features and integrated terminal.
+- `Out-GridView`, but is Windows-only. There is a similar `Out-ConsoleGridView` module for Linux and MacOS, but it is not as fully featured.
 
 ---
 
@@ -64,7 +70,9 @@ By Daniel Schroeder
 - Rich set of built-in cmdlets out-of-the-box.
 - Tons of community modules available via PowerShell Gallery.
 - Loads of documentation and a great, supportive community.
+
 - Can use PS2EXE module to compile scripts into standalone executables.
+- Range operator `..` to create arrays of numbers or characters.
 
 ---
 
@@ -81,6 +89,7 @@ By Daniel Schroeder
 - Automatic unrolling of arrays in certain contexts (e.g. when returning an array)
 - Set-StrictMode to enforce stricter coding practices and catch common mistakes.
 - ForEach-Object vs. foreach loop differences (e.g. ForEach-Object processes items one at a time, while foreach loop processes all items at once)
+- Using Select-Object -ExpandProperty to expand properties that are objects or arrays into the pipeline, rather than returning them as nested objects.
 
 ---
 
@@ -130,18 +139,19 @@ Also, some Docker images do not have all tools installed. e.g. the hardened Alpi
 
 PowerShell has default aliases many (but not all) common Bash commands, such as:
 
-- ls vs. Get-ChildItem
-- cat vs. Get-Content
-- less vs. Get-Content -Wait
-- grep vs. Select-String
-- mv vs. Move-Item
-- rm vs. Remove-Item
-- pwd vs. Get-Location
-- echo vs. Write-Output
-- touch vs. New-Item -ItemType File
-- mkdir vs. New-Item -ItemType Directory
-- find vs. Get-ChildItem -Recurse
-- locate vs. Get-ChildItem -Recurse
+- cls is Clear-Host
+- ls is Get-ChildItem
+- cat is Get-Content
+- less is Get-Content -Wait
+- grep is Select-String
+- mv is Move-Item
+- rm is Remove-Item
+- pwd is Get-Location
+- echo is Write-Output
+- touch is New-Item -ItemType File
+- mkdir is New-Item -ItemType Directory
+- find is Get-ChildItem -Recurse
+- locate is Get-ChildItem -Recurse
 
 Use `Get-Alias` to see all aliases, and `Get-Command` to see all cmdlets.
 
@@ -185,3 +195,23 @@ It's great to know _BOTH_ PowerShell and Bash!
 - Dependency on .NET versions
   - Requires removing old .NET versions when they fall out of support.
 - No compiler, so typos and syntax errors are often only caught at runtime.
+
+---
+
+## Demos
+
+Do the first 15 - 20 minutes as a presentation, then 15 - 20 minutes of demos
+
+- `Get-Alias` to see all aliases
+- `Get-Command` to see all cmdlets and what module they belong to
+- Select-Object -First 10
+- `Select-Object -Property Name, Version` to select specific properties of an object
+- Select-Object -Property *
+  - `select *` as shorthand
+- `Select-Object -ExpandProperty` to expand a property that is an object or array into the pipeline
+- `Select-Object -GroupBy` to group objects by a property and perform aggregate operations on them
+  - Do a Sort before GroupBy so that it sorts then groups, otherwise you might end up with a lot of groups as it streams results to the GroupBy cmdlet. (filter left, format right)
+- Format-Table vs. Format-List to control how output is displayed
+- Select-String to search for text in files or output. Use `-AllMatches` to find all matches in a line.
+  - Can also be ran against a directory and it will search all files in that directory and subdirectories.
+- `Out-GridView -PassThru` to select items from a list of objects and pass them downstream in the pipeline.
