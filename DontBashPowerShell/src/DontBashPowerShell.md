@@ -44,6 +44,13 @@ By Daniel Schroeder
 
 ---
 
+## Terminal vs. Shell
+
+- Terminal is the program that provides the interface for text input and output (e.g. Windows Terminal, iTerm2, etc.)
+- Shell is the program that processes commands and provides features like scripting, variables, etc. (e.g. PowerShell, Bash, etc.)
+
+---
+
 ## Quick tidbits
 
 - PowerShell is cross-platform (Windows, Linux, macOS).
@@ -58,6 +65,7 @@ By Daniel Schroeder
 - Extension is `.ps1` for PowerShell scripts, and `.psm1` for modules.
 - VS Code is the preferred editor for PowerShell script development, with the PowerShell extension providing rich editing features and integrated terminal.
 - `Out-GridView`, but is Windows-only. There is a similar `Out-ConsoleGridView` module for Linux and MacOS, but it is not as fully featured.
+- Can omit parameter names and use positional parameters
 
 ---
 
