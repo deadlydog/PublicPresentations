@@ -179,6 +179,27 @@ If just calling other CLIs without parsing output, the 2 are very similar; just 
 
 ---
 
+## Other languages
+
+Show comparisons of PowerShell vs. C#, Ruby, and Python for common tasks, such as:
+
+- Reading/writing files
+- Making HTTP requests
+- Working with JSON
+- Interacting with the filesystem
+
+---
+
+## When to use PowerShell
+
+- Automation and scripting tasks
+- CI/CD pipelines
+- Glueing together different tools and processes
+- Interacting with APIs. e.g. Azure CLI, AWS CLI, etc.
+  - Modules for Azure, AWS, etc. that provide cmdlets for interacting with their services, which can be easier to work with than their REST APIs or CLI tools.
+
+---
+
 ## When to use Bash instead of PowerShell
 
 - Mostly Linux administration tasks, especially if you can't guarantee PowerShell is installed.
