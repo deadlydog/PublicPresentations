@@ -244,3 +244,51 @@ Do the first 15 - 20 minutes as a presentation, then 15 - 20 minutes of demos
 - Select-String to search for text in files or output. Use `-AllMatches` to find all matches in a line.
   - Can also be ran against a directory and it will search all files in that directory and subdirectories.
 - `Out-GridView -PassThru` to select items from a list of objects and pass them downstream in the pipeline.
+
+---
+
+What is the difference between these two code snippets?
+
+```powershell
+Get-Process | Select-String 'chrome' | Select-Object -First 10
+```
+
+```powershell
+ps | sls 'chrome' | select -First 10
+```
+
+Nothing, they are equivalent.
+
+---
+
+## Splatting
+
+```powershell
+Send-MailMessage -To me@mydomain.com -From me@mydomain.com -Subject "Hi" `
+    -Body "Hello" -SmtpServer smpthost -ErrorAction SilentlyContinue
+```
+
+```powershell
+$MailMessage = @{
+    To = "me@mycompany.com"
+    From = "me@mycompany.com"
+    Subject = "Hi"
+    Body = "Hello"
+    Smtpserver = "smtphost"
+    ErrorAction = "SilentlyContinue"
+}
+
+Send-MailMessage @MailMessage
+```
+
+---
+
+## Installing modules
+
+Super easy to install modules from the PowerShell Gallery: https://www.powershellgallery.com
+
+<br />
+
+```powershell
+Install-Module -Name tiPS
+```
