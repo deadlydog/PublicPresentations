@@ -17,6 +17,8 @@ Get-Help Get-ChildItem -Full
 # Use the -Online parameter to view the help content in a web browser.
 Get-Help Get-ChildItem -Online
 
+#----------
+
 # Variables are expanded in double-quoted strings, but not single-quoted strings.
 $string1 = "Hello, "
 [string] $string2 = "World!"
@@ -24,20 +26,28 @@ $string1 + $string2
 "$string1$string2"
 '$string1$string2'
 
+#----------
+
 # Write-Output is implied when you write an expression or variable.
 $number1 = 1
 [int] $number2 = 2
 $number1 + $number2
 Write-Output ($number1 + $number2)
 
-# Assigning a typed variable with the wrong type results in an error.
-[int] $number = "Hello"
-$number
+#----------
 
 # PowerShell is not case-sensitive.
 $number = 42
 $NUMBER
 $nUmBeR
+
+#----------
+
+# Assigning a typed variable with the wrong type results in an error.
+[int] $number = "Hello"
+$number
+
+#----------
 
 # Use Strict Mode to enforce variable declaration and other rules.
 $undeclaredVariable
@@ -48,12 +58,16 @@ $undeclaredVariable
 
 Set-StrictMode -Off
 
+#----------
+
 # See what properties and methods are available on an object, and it's type, using Get-Member.
 Get-Process | Get-Member
 
 # See all properties of an object using Select-Object.
 Get-Process | Select-Object -First 1
 Get-Process | Select-Object -First 1 -Property *
+
+#----------
 
 # Iterate over a collection of objects using ForEach-Object.
 1..10 | ForEach-Object { Write-Output "Number: $PSItem" }
@@ -63,9 +77,13 @@ Get-Process | Select-Object -First 1 -Property *
 1..10 | % { $sum += $_ }
 "Sum: $sum"
 
+#----------
+
 # Filter using Where-Object.
 Get-Process |
 	Where-Object { $_.WorkingSet -gt 500MB }
+
+#----------
 
 # Sort using Sort-Object.
 Get-Process |
@@ -79,12 +97,16 @@ Get-Process |
 	Sort WorkingSet -Descending |
 	Select Name, WorkingSet
 
+#----------
+
 # See all aliases
 Get-Alias
 Get-Alias -Name ls
 Get-Alias -Definition Get-ChildItem
 Set-Alias -Name lucky -Value Get-Random
 lucky
+
+#----------
 
 # Can add custom properties to any object using Add-Member.
 $process = Get-Process | Select-Object -First 1
@@ -98,6 +120,8 @@ $process | Select-Object Name, @{Name="DansCalculatedProperty"; Expression={"Dan
 
 $process | Select-Object Name, WorkingSet, @{Name = "MemoryInMb"; Expression = { $_.WorkingSet / 1MB } } -First 1
 
+#----------
+
 # Will error if you call a function that's not defined yet.
 Write-HelloWorld
 
@@ -107,12 +131,25 @@ function Write-HelloWorld {
 
 Write-HelloWorld
 
-function Write-Hello ($name) {
-	Write-Output "Hello, $name!"
+#----------
+
+# Functions can have parameters
+function Write-Hello ($name, $age) {
+	Write-Output "Hello, $name! You are $age years old."
 }
 
-Write-Hello "Alice"
-Write-Hello -name "Bob"
+Write-Hello "Alice" 25
+Write-Hello 25 "Alice"
+Write-Hello -name "Bob" -age 30
+
+# Better to strongly type your parameters.
+function Write-Hello ([string] $name, [int] $age) {
+	Write-Output "Hello, $name! You are $age years old."
+}
+
+Write-Hello 25 "Alice"
+
+#----------
 
 # Functions can return multiple values.
 function Get-NameAndAge1 {
@@ -134,6 +171,8 @@ function Get-NameAndAge3 {
 }
 Get-NameAndAge3
 
+#----------
+
 # Make sure you capture or discard output you do not want to return.
 function Get-PingSucceeded1 {
 	ping.exe google.com
@@ -153,6 +192,8 @@ function Get-PingSucceeded3 {
 }
 Get-PingSucceeded3
 
+#----------
+
 # Can call native .NET methods as well.
 "Hello".ToUpper() | Out-File -FilePath 'C:\Temp\Hello.txt' -Encoding UTF8
 
@@ -171,6 +212,35 @@ $path2
 [System.IO.Directory]::CreateDirectory($path2)
 [System.IO.Directory]::Exists($path2)
 
+#----------
+
+# Can get input from user using Read-Host.
+$name = Read-Host "What is your name?"
+Write-Output "Hello, $name!"
+
+# Can use Out-GridView to display data and get user's choice.
+# Out-GridView is Windows-only. Use Out-ConsoleGridView module for a cross-platform alternative.
+$cars = @(
+	[PSCustomObject]@{ Make = "Toyota"; Model = "Camry"; Year = "2020" }
+	[PSCustomObject]@{ Make = "Honda"; Model = "Civic"; Year = "2019" }
+	[PSCustomObject]@{ Make = "Ford"; Model = "Mustang"; Year = "2021" }
+	[PSCustomObject]@{ Make = "Tesla"; Model = "Model 3"; Year = "2022" }
+)
+$cars | Out-GridView -Title "Select a car" -PassThru
+
+# Can even display UI controls.
+# Show message box popup and return the button clicked by the user.
+function Read-MessageBoxDialog([string]$Message, [string]$WindowTitle, [System.Windows.Forms.MessageBoxButtons]$Buttons = [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]$Icon = [System.Windows.Forms.MessageBoxIcon]::None) {
+	Add-Type -AssemblyName System.Windows.Forms
+	return [System.Windows.Forms.MessageBox]::Show($Message, $WindowTitle, $Buttons, $Icon)
+}
+
+$buttonClicked = Read-MessageBoxDialog -Message "Please press the OK button." -WindowTitle "Message Box Example" -Buttons OKCancel -Icon Exclamation
+if ($buttonClicked -eq "OK") { Write-Host "Thanks for pressing OK" }
+else { Write-Host "You clicked $buttonClicked" }
+
+#----------
+
 # Many different streams for output.
 Write-Output "Output stream."
 Write-Error "Error stream."
@@ -185,19 +255,44 @@ $DebugPreference = "Break"
 
 $ErrorActionPreference = "Stop" # Forces an exception to be thrown.
 $ErrorActionPreference = "SilentlyContinue"
-$ErrorActionPreference = "Continue"
 
 # Reset to default values.
 $InformationPreference = "SilentlyContinue"
 $VerbosePreference = "SilentlyContinue"
 $DebugPreference = "SilentlyContinue"
+$ErrorActionPreference = "Continue"
+
+#----------
+
+# Throw an exception to stop execution
+"Hello"
+throw "Throwing an exception halts execution!"
+"World!"
+
+# Use try/catch to handle exceptions.
+try {
+	Write-Output "Hello"
+	Write-Error "ERROR: Execution will still continue after this error"
+	throw "Throwing an exception that will be caught and execution will proceed"
+	Write-Output "World!"
+}
+catch {
+	Write-Error "Caught an exception: $_"
+}
+"Nice to meet you"
+
+#----------
 
 # Use WhatIf to see what changes would be made without actually making them.
 Remove-Item -Path 'C:\Temp\*' -Recurse -WhatIf
 
+#----------
+
 # Put code in your $PROFILE file to have it run every time you start PowerShell.
 # code $PROFILE
 code $DansProfileFilePath
+
+#----------
 
 # More advanced function with parameter validation and help content, and common parameters via CmdletBinding.
 function Write-NameToStream {
@@ -227,6 +322,8 @@ Write-NameToStream -Name "Bob" -ErrorAction SilentlyContinue -WarningAction Sile
 
 Get-Help Write-NameToStream -Full
 
+#----------
+
 # Process CSV and JSON data easily with Import-Csv and Export-Csv, and Import-Json and Export-Json.
 $csvData = Get-Content -Path 'D:\dev\Git\PublicPresentations\DontBashPowerShell\src\SampleData.csv' | ConvertFrom-Csv
 $people = $csvData |
@@ -234,6 +331,8 @@ $people = $csvData |
 	Select-Object 'First Name', 'Last Name', 'Email'
 $people
 $people | ConvertTo-Json | Out-File -Path 'C:\Temp\Sara.json' -Encoding UTF8
+
+#----------
 
 # Run commands on remote computers using Invoke-Command.
 $scriptBlock = {
