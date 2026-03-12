@@ -7,7 +7,7 @@ paginate: true # Show page numbers on slides.
 <!-- Don't show page number on title slide -->
 <!-- paginate: skip -->
 
-# Don't Bash, PowerShell!
+# ⚡ Don't Bash, PowerShell!
 
 ## An introduction to PowerShell; Why and when to use it
 
@@ -17,6 +17,24 @@ By Daniel Schroeder
 <!-- paginate: true -->
 
 ## About Dan Schroeder
+
+```powershell
+$Dan = @{
+    Name = 'Daniel Schroeder'
+    Alias = 'deadlydog'
+    Role = 'Individual Contributor'
+    Company = "iQmetrix"
+    Address = @{
+      City = 'Regina'
+      Province = 'Saskatchewan'
+      Country = 'Canada'
+    }
+    Experience = '2+ decades writing code'
+    Blog = 'https://blog.danskingdom.com'
+    Passions = @('Coding', 'Blogging', 'Automation', 'Dev Productivity Tools')
+    Likes = @('.NET', 'PowerShell', 'Knowledge Sharing', 'Dogs', 'Roller Blading')
+}
+```
 
 ---
 
