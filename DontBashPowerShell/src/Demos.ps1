@@ -145,5 +145,39 @@ $ErrorActionPreference = "Stop" # Forces an exception to be thrown.
 $ErrorActionPreference = "SilentlyContinue"
 $ErrorActionPreference = "Continue"
 
+# Reset to default values.
+$InformationPreference = "SilentlyContinue"
+$VerbosePreference = "SilentlyContinue"
+$DebugPreference = "SilentlyContinue"
+
 # Use WhatIf to see what changes would be made without actually making them.
-Remove-Item -Path $PSScriptRoot -WhatIf
+Remove-Item -Path 'C:\Temp\*' -Recurse -WhatIf
+
+# Put code in your $PROFILE file to have it run every time you start PowerShell.
+# code $PROFILE
+code $DansProfileFilePath
+
+function Write-NameToStream {
+	[CmdletBinding()]
+	param(
+		[Parameter(Mandatory = $false, HelpMessage = "The name to include in the output.")]
+		[ValidateSet("Alice", "Bob", "Charlie", "Dan")]
+		[string] $Name
+	)
+	Write-Output "Hello $Name."
+	Write-Error "Error stream."
+	Write-Warning "Warning stream."
+	Write-Information "Information stream (not shown by default)."
+	Write-Verbose "Verbose stream (not shown by default)."
+	Write-Debug "Debug stream (not shown by default)."
+}
+Write-NameToStream -Name "Alice"
+Write-NameToStream -Name "Edward" # Invalid value
+Write-NameToStream -Name "Dan" -Verbose -Debug -InformationAction Continue
+
+$output = Write-NameToStream -Name "Bob" -Verbose -Debug -InformationAction Continue
+$output
+
+Write-NameToStream -Name "Bob" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue
+
+Get-Help Write-NameToStream -Full

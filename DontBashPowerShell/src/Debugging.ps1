@@ -12,6 +12,7 @@ catch {
 	Write-Error "Error invoking REST method: $_"
 }
 
+#------------------------------------------------
 # Example of using Invoke-WebRequest to get the same data.
 
 $headers = @{

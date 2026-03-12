@@ -66,6 +66,7 @@ By Daniel Schroeder
 - VS Code is the preferred editor for PowerShell script development, with the PowerShell extension providing rich editing features and integrated terminal.
 - `Out-GridView`, but is Windows-only. There is a similar `Out-ConsoleGridView` module for Linux and MacOS, but it is not as fully featured.
 - Can omit parameter names and use positional parameters
+- Use the Pester module for unit testing
 
 ---
 
