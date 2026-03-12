@@ -15,6 +15,19 @@ By Daniel Schroeder
 
 ---
 <!-- paginate: true -->
+<!--
+style: |
+  section.about-slide img[alt="Image of Dan"] {
+    position: absolute;
+    top: 64px;
+    right: 120px;
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+-->
+<!-- _class: about-slide -->
 
 ## About Dan Schroeder
 
@@ -35,6 +48,8 @@ $Dan = @{
     Likes = @('.NET', 'PowerShell', 'Knowledge Sharing', 'Dogs', 'Roller Blading')
 }
 ```
+
+![Image of Dan](./Assets/deadlydog-400x400.jpg)
 
 ---
 
