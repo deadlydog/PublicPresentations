@@ -4,14 +4,52 @@ theme: default
 paginate: true # Show page numbers on slides.
 
 ---
+
+<style>
+  section h1 {
+    color: #0078d4;
+    border-bottom: 3px solid #0078d4;
+    padding-bottom: 8px;
+  }
+
+  /* ── Lead / Title slides ── */
+  section.lead {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  section.lead h1 { font-size: 2.6em; border: none; color: #60a5fa; }
+  section.lead h2 { font-size: 1.8em; color: #3d70b8; font-weight: 400; }
+  section.lead p  { color: #64748b; text-align: right; }
+
+  /* ── Two-column layout ── */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 12px;
+  }
+
+  .col-ps  { border-left: 4px solid #0078d4; padding-left: 12px; }
+  .col-sh  { border-left: 4px solid #4eaa25; padding-left: 12px; }
+
+  .col-ps h3 { color: #1d4ed8; }
+  .col-sh h3 { color: #15803d; }
+</style>
+
+<!-- _class: lead -->
+
 <!-- Don't show page number on title slide -->
 <!-- paginate: skip -->
 
 # ⚡ Don't Bash, PowerShell!
 
-## An introduction to PowerShell; Why and when to use it
+## An introduction to PowerShell and comparison with Bash
 
-By Daniel Schroeder
+<br/><br/>
+
+Presented by Daniel Schroeder
 
 ---
 <!-- paginate: true -->
@@ -29,7 +67,7 @@ style: |
 -->
 <!-- _class: about-slide -->
 
-## About Dan Schroeder
+# About Dan Schroeder
 
 ```powershell
 $Dan = @{
@@ -53,7 +91,7 @@ $Dan = @{
 
 ---
 
-## Audience Survey
+# Audience Survey
 
 1. Who has used PowerShell before?
 1. Who has used Bash before?
@@ -62,59 +100,90 @@ $Dan = @{
 
 ---
 
-## What is PowerShell?
+# What is PowerShell?
 
-- What do you think PowerShell is? What do you think it's used for?
-- Command-line shell
-- Scripting language enabling automation
-- Developed by Microsoft
-- Open-source and cross-platform (Windows, MacOS, Linux)
-
-- Easy to get started with, with one-liners
-- Eventually stitch those together into scripts
-- Later move those into functions
-- Finally, create modules to share and reuse code across projects and teams
+- Command-line shell and scripting language
+- Created by Microsoft in __2006__; open sourced in __2016__
+- Cross-platform (Windows, MacOS, Linux)
+- Built on top of .NET and allows access to the .NET libraries
 
 ---
 
-## Terminal vs. Shell
+# Windows PowerShell vs. PowerShell
 
-- Terminal is the program that provides the interface for text input and output (e.g. Windows Terminal, iTerm2, etc.)
-- Shell is the program that processes commands and provides features like scripting, variables, etc. (e.g. PowerShell, Bash, etc.)
+<div class="columns">
+<div class="col-ps">
+
+### Windows PowerShell
+
+- Windows-only
+- Latest version is 5.1
+- Built on .NET Framework
+- No development; only security updates
+- Ships with Windows
+- powershell.exe
+
+</div>
+
+<div class="col-ps">
+
+### PowerShell (Core)
+
+- Cross-platform (Windows, Linux, macOS)
+- First version was 6.0, latest is currently 7.5
+- Built on .NET Core / .NET 5+
+- Open source
+- Actively developed
+- Must be installed
+- pwsh.exe
+
+</div>
+</div>
 
 ---
 
-## Quick tidbits
+# What makes PowerShell awesome
 
-- PowerShell is cross-platform (Windows, Linux, macOS).
-- PowerShell is built on .NET, and you can use .NET methods.
-- Uses Verb-Noun naming convention for cmdlets (e.g., Get-Process, Set-Item).
-- Supports both interactive use and scripting.
-- Is case insensitive.
-- Is object-oriented, meaning it works with objects rather than just text.
-- Can be used both dynamically and strongly typed
+- Everything is an object (has properties and methods), not just text
+- Uses consistent `Verb-Noun` naming convention (e.g. `Get-Process`, `Set-Item`)
+  - [Approved verbs](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands) makes cmdlet names predictable and discoverable.
+- Dynamic or strongly typed, so you can choose the level of type safety you want
+- Tab completion for cmdlets and parameters
+- Rich set of built-in cmdlets out-of-the-box, plus access to .NET libraries
+- Great for remoting and running commands on remote machines
+- Tons of community modules available via PowerShell Gallery
+- Loads of documentation and a great, supportive community
+
+---
+
+# PowerShell tidbits
+
+- Supports both interactive use and scripting
+- Is _not_ case-sensitive
 - Pipeline to allow for chaining commands together, and passing objects downstream before fully processing all objects (similar to `yield return x` in C#)
 - Use `$PROFILE` to run a script at startup to customize your environment (e.g. add aliases, functions, import modules, etc.)
-- Extension is `.ps1` for PowerShell scripts, and `.psm1` for modules.
-- VS Code is the preferred editor for PowerShell script development, with the PowerShell extension providing rich editing features and integrated terminal.
+- Can add custom properties and methods to any object on the fly.
 - `Out-GridView`, but is Windows-only. There is a similar `Out-ConsoleGridView` module for Linux and MacOS, but it is not as fully featured.
 - Can omit parameter names and use positional parameters
 - Use the Pester module for unit testing
+- Can use PS2EXE module to compile scripts into standalone executables.
+- Range operator `..` to create arrays of numbers or characters.
 
 ---
 
-## What makes PowerShell awesome?
+# More PowerShell tidbits
 
-- Uses objects (properties and methods) instead of text parsing.
-- Dynamic and strongly typed, so you can choose the level of type safety you want.
-- Can add custom properties and methods to any object on the fly.
-- Tab completion for cmdlets and parameters.
-- Rich set of built-in cmdlets out-of-the-box.
-- Tons of community modules available via PowerShell Gallery.
-- Loads of documentation and a great, supportive community.
+- VS Code with the `PowerShell` extension is the recommended IDE
+  - Provides syntax highlighting, IntelliSense, debugging, and integrated terminal
 
-- Can use PS2EXE module to compile scripts into standalone executables.
-- Range operator `..` to create arrays of numbers or characters.
+---
+
+# Typical learning flow
+
+1. Easy to get started with, with one-liners
+1. Eventually stitch those together into scripts (`.ps1` file)
+1. Later move those into functions
+1. Finally, create modules to share code across projects and teams (`.psm1` file)
 
 ---
 
