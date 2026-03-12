@@ -158,6 +158,19 @@ Get-PingSucceeded3
 
 [System.IO.File]::WriteAllText('C:\Temp\Hello2.txt', "Hello, World!", [System.Text.Encoding]::UTF8)
 
+# Create paths and test if they exist.
+$path = Join-Path -Path 'C:\Temp' -ChildPath 'Subfolder'
+$path
+Test-Path -Path $path
+New-Item -Path $path -ItemType Directory
+Test-Path -Path $path
+
+$path2 = [System.IO.Path]::Combine('C:\Temp', 'Subfolder2')
+$path2
+[System.IO.Directory]::Exists($path2)
+[System.IO.Directory]::CreateDirectory($path2)
+[System.IO.Directory]::Exists($path2)
+
 # Many different streams for output.
 Write-Output "Output stream."
 Write-Error "Error stream."
@@ -216,9 +229,11 @@ Get-Help Write-NameToStream -Full
 
 # Process CSV and JSON data easily with Import-Csv and Export-Csv, and Import-Json and Export-Json.
 $csvData = Get-Content -Path 'D:\dev\Git\PublicPresentations\DontBashPowerShell\src\SampleData.csv' | ConvertFrom-Csv
-$csvData |
+$people = $csvData |
 	Where-Object { $_.'First Name' -eq 'Sara' } |
 	Select-Object 'First Name', 'Last Name', 'Email'
+$people
+$people | ConvertTo-Json | Out-File -Path 'C:\Temp\Sara.json' -Encoding UTF8
 
 # Run commands on remote computers using Invoke-Command.
 $scriptBlock = {
