@@ -1,3 +1,7 @@
+# Install the PowerShell extension.
+# Intellisense and tab completion work in the console, scripts, and even here in the markdown file.
+# Use Ctrl+Space to see all available completions at any point.
+
 # See all available commands.
 Get-Command
 
@@ -24,10 +28,16 @@ $string1 + $string2
 $number1 = 1
 [int] $number2 = 2
 $number1 + $number2
+Write-Output ($number1 + $number2)
 
 # Assigning a typed variable with the wrong type results in an error.
 [int] $number = "Hello"
 $number
+
+# PowerShell is not case-sensitive.
+$number = 42
+$NUMBER
+$nUmBeR
 
 # Use Strict Mode to enforce variable declaration and other rules.
 $undeclaredVariable
@@ -45,6 +55,14 @@ Get-Process | Get-Member
 Get-Process | Select-Object -First 1
 Get-Process | Select-Object -First 1 -Property *
 
+# Iterate over a collection of objects using ForEach-Object.
+1..10 | ForEach-Object { Write-Output "Number: $PSItem" }
+
+# % is an alias for ForEach-Object, and $_ is an alias for $PSItem.
+[int] $sum = 0
+1..10 | % { $sum += $_ }
+"Sum: $sum"
+
 # Filter using Where-Object.
 Get-Process |
 	Where-Object { $_.WorkingSet -gt 500MB }
@@ -54,6 +72,12 @@ Get-Process |
 	? { $_.WorkingSet -gt 500MB } |
 	Sort-Object -Property WorkingSet -Descending |
 	Select-Object -Property Name, WorkingSet
+
+# This is equivalent to the above, but using aliases and positional parameters.
+Get-Process |
+	Where { $_.WorkingSet -gt 500MB } |
+	Sort WorkingSet -Descending |
+	Select Name, WorkingSet
 
 # See all aliases
 Get-Alias
@@ -119,7 +143,7 @@ Get-PingSucceeded1
 
 function Get-PingSucceeded2 {
 	ping.exe google.com | Out-Null
-	$?
+	$LASTEXITCODE -eq 0 # $LASTEXITCODE is a special variable that contains the exit code of the last native command. It will be 0 if the ping command succeeded, and non-zero if it failed.
 }
 Get-PingSucceeded2
 
@@ -128,6 +152,11 @@ function Get-PingSucceeded3 {
 	$output -like '*Received = 4*'
 }
 Get-PingSucceeded3
+
+# Can call native .NET methods as well.
+"Hello".ToUpper() | Out-File -FilePath 'C:\Temp\Hello.txt' -Encoding UTF8
+
+[System.IO.File]::WriteAllText('C:\Temp\Hello2.txt', "Hello, World!", [System.Text.Encoding]::UTF8)
 
 # Many different streams for output.
 Write-Output "Output stream."
@@ -157,6 +186,7 @@ Remove-Item -Path 'C:\Temp\*' -Recurse -WhatIf
 # code $PROFILE
 code $DansProfileFilePath
 
+# More advanced function with parameter validation and help content, and common parameters via CmdletBinding.
 function Write-NameToStream {
 	[CmdletBinding()]
 	param(
@@ -178,6 +208,23 @@ Write-NameToStream -Name "Dan" -Verbose -Debug -InformationAction Continue
 $output = Write-NameToStream -Name "Bob" -Verbose -Debug -InformationAction Continue
 $output
 
+Write-NameToStream -Name  # Ctrl+Space to see available completions for the Name parameter.
+
 Write-NameToStream -Name "Bob" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue
 
 Get-Help Write-NameToStream -Full
+
+# Process CSV and JSON data easily with Import-Csv and Export-Csv, and Import-Json and Export-Json.
+$csvData = Get-Content -Path 'D:\dev\Git\PublicPresentations\DontBashPowerShell\src\SampleData.csv' | ConvertFrom-Csv
+$csvData |
+	Where-Object { $_.'First Name' -eq 'Sara' } |
+	Select-Object 'First Name', 'Last Name', 'Email'
+
+# Run commands on remote computers using Invoke-Command.
+$scriptBlock = {
+	Write-Output "Hello from $env:COMPUTERNAME"
+}
+Invoke-Command -ScriptBlock $scriptBlock -ComputerName 'Server1.domain.com', 'Server2.domain.com', 'Server3.domain.com'
+
+# Some commands have built-in remoting capabilities, such as Restart-Computer.
+Restart-Computer -ComputerName 'Server1.domain.com', 'Server2.domain.com', 'Server3.domain.com' -Force

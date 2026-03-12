@@ -293,3 +293,13 @@ Super easy to install modules from the PowerShell Gallery: https://www.powershel
 ```powershell
 Install-Module -Name tiPS
 ```
+
+---
+
+## Awesome modules
+
+- Posh-Git - Git prompt status and tab completion for Git commands.
+- ImportExcel - Read and write Excel files without needing Excel installed.
+- tiPS - Get a PowerShell tip in your terminal every day or week.
+- Pester - Unit testing framework for PowerShell.
+- PSReadLine - Enhanced command-line editing experience with syntax highlighting, multi-line editing, and more.
