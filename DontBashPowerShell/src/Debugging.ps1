@@ -38,3 +38,16 @@ if ($webResponse.StatusCode -eq 200) {
 else {
 	Write-Error "Failed to retrieve data. Status code: $($webResponse.StatusCode)"
 }
+
+#------------------------------------------------
+# Example of using curl to get the same data.
+
+$breeds = Invoke-RestMethod -Uri 'https://dogapi.dog/api/v2/breeds?page%5Bsize%5D=3'
+$breeds.data | ForEach-Object {
+	$_.attributes
+}
+
+curl.exe 'https://dogapi.dog/api/v2/breeds?page%5Bsize%5D=3' |
+	ConvertFrom-Json |
+	Select-Object -ExpandProperty data |
+	Select-Object -ExpandProperty attributes
