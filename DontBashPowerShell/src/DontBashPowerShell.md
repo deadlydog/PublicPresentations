@@ -47,7 +47,7 @@ paginate: true # Show page numbers on slides.
 
 ## An introduction to PowerShell and comparison with Bash
 
-<br/><br/>
+<br /><br />
 
 Presented by Daniel Schroeder
 
@@ -142,6 +142,196 @@ $Dan = @{
 
 ---
 
+# What is Bash?
+
+- 🐧 __Bourne Again SHell__ — successor to the original `sh`
+- 🐧 Born in __1989__; default shell on most __Linux__ and __macOS__ systems
+- 🐧 Passes __plain text strings__ through its pipeline
+- 🐧 Deeply integrated with the __Unix toolchain__ (`grep`, `sed`, `awk`, `curl`)
+- 🐧 Ubiquitous in __containers__, CI/CD, and server environments
+- 🐧 POSIX-compliant — portable across Unix-like systems
+
+---
+
+# The Fundamental Difference
+
+<div class="columns">
+<div class="col-ps">
+
+### PowerShell — Objects
+
+```powershell
+# Pipeline carries objects with properties
+Get-Process |
+  Where-Object CPU -gt 10 |
+  Select-Object Name, CPU |
+  Sort-Object CPU -Descending
+```
+
+- Each stage receives **typed objects**
+- Filter/sort by **property name** — no parsing
+- Output has structured columns automatically
+
+</div>
+<div class="col-sh">
+
+### Bash — Text
+
+```bash
+# Pipeline carries raw text — must parse manually
+ps aux |
+  awk '$3 > 10 {print $11, $3}' |
+  sort -k2 -rn
+```
+
+- Each stage receives **a string of characters**
+- Must know exact column positions to extract data
+- Output format depends on tool and locale
+
+</div>
+</div>
+
+---
+
+# Code Comparison: Variables & Types
+
+<div class="columns">
+<div class="col-ps">
+
+### PowerShell
+
+```powershell
+# Strongly typed when you want it
+[int] $count   = 42
+[string] $name = "Alice"
+
+# Rich object types
+$date = Get-Date
+$date.DayOfWeek  # → "Monday"
+$date.Year       # → 2026
+
+# Hashtable
+$config = @{ Port = 8080; Debug = $true }
+```
+
+</div>
+<div class="col-sh">
+
+### Bash
+
+```bash
+# Everything is a string
+count=42
+name="Alice"
+
+# Date is a formatted string
+date=$(date)
+# Must parse manually to get parts
+year=$(date +%Y)    # → "2026"
+
+# Associative array (Bash 4+)
+declare -A config
+config[Port]=8080
+```
+
+</div>
+</div>
+
+---
+
+# Code Comparison: Error Handling
+
+<div class="columns">
+<div class="col-ps">
+
+### PowerShell
+
+```powershell
+# Familiar try/catch/finally
+try {
+  $data = Get-Content "file.txt" -ErrorAction Stop
+  Process-Data $data
+}
+catch [System.IO.FileNotFoundException] {
+  Write-Error "File not found: $_"
+}
+finally {
+  Write-Host "Done"
+}
+```
+
+- Typed exception classes
+- `$?`, `$LASTEXITCODE` for native cmd results
+
+</div>
+<div class="col-sh">
+
+### Bash
+
+```bash
+# set -e exits on any error
+set -e
+
+# Manual error checking
+if ! data=$(cat file.txt 2>&1); then
+  echo "Error: file not found" >&2
+  exit 1
+fi
+
+process_data "$data"
+echo "Done"
+```
+
+- Errors are **silent by default** — must use `set -e`
+
+</div>
+</div>
+
+---
+
+# Code Comparison: Working with Files
+
+<div class="columns">
+<div class="col-ps">
+
+### PowerShell
+
+```powershell
+# List, filter, copy — object-based
+Get-ChildItem -Path ./logs -Recurse |
+  Where-Object {
+    $_.LastWriteTime -lt (Get-Date).AddDays(-30) } |
+  Copy-Item -Destination ./archive
+
+# Read/write structured data natively
+$json = Get-Content config.json | ConvertFrom-Json
+$json.version = "2.0"
+$json | ConvertTo-Json | Set-Content config.json
+```
+
+</div>
+<div class="col-sh">
+
+### Bash
+
+```bash
+# Find old files and copy — text-based
+find ./logs -mtime +30 -type f |
+  while read -r file; do
+    cp "$file" ./archive/
+  done
+
+# Read/write JSON requires jq
+version=$(jq -r '.version' config.json)
+jq '.version = "2.0"' config.json > tmp.json
+mv tmp.json config.json
+```
+
+</div>
+</div>
+
+---
+
 # What makes PowerShell awesome
 
 - Everything is an object (has properties and methods), not just text
@@ -151,7 +341,7 @@ $Dan = @{
 - Tab completion for cmdlets and parameters
 - Rich set of built-in cmdlets out-of-the-box, plus access to .NET libraries
 - Great for remoting and running commands on remote machines
-- Tons of community modules available via PowerShell Gallery
+- Tons of community modules available via [PowerShellGallery.com](https://www.powershellgallery.com)
 - Loads of documentation and a great, supportive community
 
 ---
@@ -195,7 +385,7 @@ $Dan = @{
 
 ## Unintuitive things to watch out for
 
-- $_ is the built-in pipeline variable. Alias is $PSItem.
+- `$_` is the built-in pipeline variable. Alias is `$PSItem`.
 - Terminating vs. non-terminating errors. Use try/catch and $ErrorActionPreference to control behavior.
 - Automatic unrolling of arrays in certain contexts (e.g. when returning an array)
 - Set-StrictMode to enforce stricter coding practices and catch common mistakes.
@@ -390,15 +580,21 @@ Send-MailMessage @MailMessage
 
 Super easy to install modules from the PowerShell Gallery: https://www.powershellgallery.com
 
-<br />
-
 ```powershell
 Install-Module -Name tiPS
 ```
 
+<br />
+
+Update them easily too:
+
+```powershell
+Update-Module -Name tiPS
+```
+
 ---
 
-## Awesome modules
+# Awesome modules
 
 - Posh-Git - Git prompt status and tab completion for Git commands.
 - ImportExcel - Read and write Excel files without needing Excel installed.
