@@ -325,7 +325,7 @@ Get-Help Write-NameToStream -Full
 #----------
 
 # Process CSV and JSON data easily with Import-Csv and Export-Csv, and Import-Json and Export-Json.
-$csvData = Get-Content -Path 'D:\dev\Git\PublicPresentations\DontBashPowerShell\src\SampleData.csv' | ConvertFrom-Csv
+$csvData = Get-Content -Path 'D:\dev\Git\PublicPresentations\DontBashPowerShell\src\Demos\SampleData.csv' | ConvertFrom-Csv
 $people = $csvData |
 	Where-Object { $_.'First Name' -eq 'Sara' } |
 	Select-Object 'First Name', 'Last Name', 'Email'
