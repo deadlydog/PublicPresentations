@@ -385,9 +385,9 @@ az webapp list --resource-group MyResourceGroup
 
 - Supports both interactive use and scripting
 - Pipeline to allow for chaining commands together, and passing objects downstream before fully processing all objects (similar to `yield return x` in C#)
+- Can omit parameter names and use positional parameters
 - Use `$PROFILE` to run a script at startup to customize your environment (e.g. add aliases, functions, import modules, etc.)
 - Can add custom properties and methods to any object on the fly
-- Can omit parameter names and use positional parameters
 - Use the `Pester` module for unit testing
 - Can use the `PS2EXE` module to compile scripts into standalone executables
 

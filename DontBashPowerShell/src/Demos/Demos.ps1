@@ -115,8 +115,10 @@ Get-Process |
 
 # See all aliases
 Get-Alias
+
 Get-Alias -Name ls
 Get-Alias -Definition Get-ChildItem
+
 Set-Alias -Name lucky -Value Get-Random
 lucky
 
@@ -250,12 +252,13 @@ $cars = @(
 	[PSCustomObject]@{ Make = "Ford"; Model = "Mustang"; Year = "2021" }
 	[PSCustomObject]@{ Make = "Tesla"; Model = "Model 3"; Year = "2022" }
 )
-$cars | Out-GridView -Title "Select a car" -PassThru
+$choice = $cars | Out-GridView -Title "Select a car" -PassThru
+Write-Output "You selected: $choice"
 
 # Can even display UI controls.
 # Show message box popup and return the button clicked by the user.
+Add-Type -AssemblyName System.Windows.Forms
 function Read-MessageBoxDialog([string]$Message, [string]$WindowTitle, [System.Windows.Forms.MessageBoxButtons]$Buttons = [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]$Icon = [System.Windows.Forms.MessageBoxIcon]::None) {
-	Add-Type -AssemblyName System.Windows.Forms
 	return [System.Windows.Forms.MessageBox]::Show($Message, $WindowTitle, $Buttons, $Icon)
 }
 
