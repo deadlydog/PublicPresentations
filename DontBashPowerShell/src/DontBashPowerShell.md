@@ -583,7 +583,7 @@ It's great to know _BOTH_ PowerShell and Bash!
 - For large applications with a lot of code
   - Compiler helps catch many errors and makes refactoring safe
 - GUI applications
-- Applications that need to be compiled for performance
+- Very high performance applications
 
 ---
 
@@ -611,4 +611,5 @@ It's great to know _BOTH_ PowerShell and Bash!
 
 <br />
 
-- __Daniel Schroeders' blog with socials__ - [blog.danskingdom.com](https://blog.danskingdom.com)
+- 📝 __Daniel Schroeder's blog with socials__ - [blog.danskingdom.com](https://blog.danskingdom.com)
+- 🛝 __Slide deck for this presentation__ - [github.com/deadlydog/PublicPresentations](https://github.com/deadlydog/PublicPresentations)
