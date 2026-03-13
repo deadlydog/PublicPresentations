@@ -80,7 +80,7 @@ $Dan = @{
       Province = 'Saskatchewan'
       Country = 'Canada'
     }
-    Experience = '2+ decades writing code'
+    Experience = '2+ decades writing code. Dual MS MVP'
     Blog = 'https://blog.danskingdom.com'
     Passions = @('Coding', 'Blogging', 'Automation', 'Dev Productivity Tools')
     Likes = @('.NET', 'PowerShell', 'Knowledge Sharing', 'Dogs', 'Roller Blading')
