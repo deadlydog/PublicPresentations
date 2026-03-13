@@ -494,11 +494,11 @@ Update-Module
 # ⚡ When to use PowerShell
 
 - Automation and scripting tasks
+  - CI/CD pipelines and DevOps tasks
 - Managing many devices or servers, especially in a Windows environment
-- CI/CD pipelines
 - Glueing together different tools, APIs, and processes
 - Interacting with APIs
-  - Many companies provide PowerShell equivalents that are easier to work with than their REST APIs or CLI tools.
+  - Many companies provide PowerShell equivalents that are easier to work with than their REST APIs or CLI tools
     - `Az` module instead of Azure CLI
     - `AWS.Tools` module instead of AWS CLI
 
@@ -507,12 +507,12 @@ Update-Module
 # 🐧 When to use Bash instead of PowerShell
 
 - Linux or MacOS administration tasks where you can't guarantee PowerShell is installed everywhere
-- Dockerfiles where you don't want to add PowerShell as a dependency, as it's a larger image
+- Dockerfile / container where you want to keep the image size small
 - When it makes sense
-  - e.g. It's a team/company standard
-  - e.g. Existing code base is already Bash.
+  - e.g. It's a team / company standard
+  - e.g. Existing code base is already Bash
 
-It's great to know _BOTH_ PowerShell and Bash!
+## It's great to know _BOTH_ PowerShell and Bash!
 
 ---
 
