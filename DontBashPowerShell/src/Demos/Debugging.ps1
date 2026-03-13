@@ -42,12 +42,13 @@ else {
 #------------------------------------------------
 # Example of using curl to get the same data.
 
-$breeds = Invoke-RestMethod -Uri 'https://dogapi.dog/api/v2/breeds?page%5Bsize%5D=3'
-$breeds.data | ForEach-Object {
-	$_.attributes
-}
+$breedsUrl = 'https://dogapi.dog/api/v2/breeds?page%5Bsize%5D=3'
 
-curl.exe 'https://dogapi.dog/api/v2/breeds?page%5Bsize%5D=3' |
+Invoke-RestMethod -Uri $breedsUrl |
+	Select-Object -ExpandProperty data |
+	Select-Object -ExpandProperty attributes
+
+curl.exe $breedsUrl |
 	ConvertFrom-Json |
 	Select-Object -ExpandProperty data |
 	Select-Object -ExpandProperty attributes
