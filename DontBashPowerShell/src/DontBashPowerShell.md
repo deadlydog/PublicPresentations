@@ -150,6 +150,7 @@ $Dan = @{
 - 🐧 Deeply integrated with the __Unix toolchain__ (`grep`, `sed`, `awk`, `curl`)
 - 🐧 Ubiquitous in __containers__, CI/CD, and server environments
 - 🐧 POSIX-compliant — portable across Unix-like systems
+- 🐧 Script starts with a shebang, `#!/bin/bash`, and have file extension `.sh`.
 
 ---
 
@@ -336,11 +337,11 @@ mv tmp.json config.json
 
 - Everything is an object (has properties and methods), not just text
 - Uses consistent `Verb-Noun` naming convention (e.g. `Get-Process`, `Set-Item`)
-  - [Approved verbs](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands) makes cmdlet names predictable and discoverable.
+  - [Approved verbs](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands) makes cmdlet names predictable and discoverable
 - Dynamic or strongly typed, so you can choose the level of type safety you want
 - Tab completion for cmdlets and parameters
 - Rich set of built-in cmdlets out-of-the-box, plus access to .NET libraries
-- Great for remoting and running commands on remote machines
+- Great for running commands on remote machines
 - Tons of community modules available via [PowerShellGallery.com](https://www.powershellgallery.com)
 - Loads of documentation and a great, supportive community
 
@@ -349,15 +350,12 @@ mv tmp.json config.json
 # PowerShell tidbits
 
 - Supports both interactive use and scripting
-- Is _not_ case-sensitive
 - Pipeline to allow for chaining commands together, and passing objects downstream before fully processing all objects (similar to `yield return x` in C#)
 - Use `$PROFILE` to run a script at startup to customize your environment (e.g. add aliases, functions, import modules, etc.)
-- Can add custom properties and methods to any object on the fly.
-- `Out-GridView`, but is Windows-only. There is a similar `Out-ConsoleGridView` module for Linux and MacOS, but it is not as fully featured.
+- Can add custom properties and methods to any object on the fly
 - Can omit parameter names and use positional parameters
-- Use the Pester module for unit testing
-- Can use PS2EXE module to compile scripts into standalone executables.
-- Range operator `..` to create arrays of numbers or characters.
+- Use the `Pester` module for unit testing
+- Can use the `PS2EXE` module to compile scripts into standalone executables
 
 ---
 
@@ -365,6 +363,13 @@ mv tmp.json config.json
 
 - VS Code with the `PowerShell` extension is the recommended IDE
   - Provides syntax highlighting, IntelliSense, debugging, and integrated terminal
+- Has many default aliases to make it easier for users coming from other shells
+  - `ls` is `Get-ChildItem`
+  - `cat` is `Get-Content`
+  - `mv` is `Move-Item`
+  - `rm` is `Remove-Item`
+  - `pwd` is `Get-Location`
+  - `echo` is `Write-Output`
 
 ---
 
@@ -372,114 +377,50 @@ mv tmp.json config.json
 
 1. Easy to get started with, with one-liners
 1. Eventually stitch those together into scripts (`.ps1` file)
-1. Later move those into functions
+1. Later create functions to reduce duplicate code
 1. Finally, create modules to share code across projects and teams (`.psm1` file)
 
 ---
 
-- `-like` and `-match` operators for wildcard and regex pattern matching respectively.
-- Can interactively run code against a remote server using `Invoke-Command` or `Enter-PSSession`.
-- Great for running code against many servers or Virtual Machines at once.
+# PowerShell operators
+
+```powershell
+1 -lt 2   # Less than <
+3 -gt 2   # Greater than >
+5 -eq 5   # Equal to ==
+1 -ne 2   # Not equal to !=
+1 -le 1   # Less than or equal to <=
+2 -ge 1   # Greater than or equal to >=
+
+"abc" -like "a*"   # Wildcard match
+"abc" -match "^a"  # Regex match
+
+$numberArray = 1..10   # Range operator to create an array of numbers
+
+[bool] $isTrue = $true   # Boolean literals
+[bool] $isFalse = $false # Requires the $ (i.e. $false, not false)
+
+$isTrue -and $isFalse   # Logical AND
+$isTrue -or $isFalse    # Logical OR
+```
 
 ---
 
 ## Unintuitive things to watch out for
 
-- `$_` is the built-in pipeline variable. Alias is `$PSItem`.
-- Terminating vs. non-terminating errors. Use try/catch and $ErrorActionPreference to control behavior.
+- `$_` is the built-in pipeline variable. Alias is `$PSItem`
+- Variables are _not_ case-sensitive
+- Terminating vs. non-terminating errors. Use try/catch and $ErrorActionPreference to control behavior
 - Automatic unrolling of arrays in certain contexts (e.g. when returning an array)
-- Set-StrictMode to enforce stricter coding practices and catch common mistakes.
+- Set-StrictMode to enforce stricter coding practices and catch common mistakes
 - ForEach-Object vs. foreach loop differences (e.g. ForEach-Object processes items one at a time, while foreach loop processes all items at once)
-- Using Select-Object -ExpandProperty to expand properties that are objects or arrays into the pipeline, rather than returning them as nested objects.
+- Using Select-Object -ExpandProperty to expand properties that are objects or arrays into the pipeline, rather than returning them as nested objects
 
 ---
 
-## Bash
+- Can interactively run code against a remote server using `Invoke-Command` or `Enter-PSSession`.
 
-- Script starts with a shebang, `#!/bin/bash`, to specify the interpreter, as has extension `.sh`.
-- Uses text-based output, so you often need to use tools like `awk`, `sed`, `grep` to parse output.
-- Uses pipes to chain commands together, passing text output from one command to the next.
-- Must use associative arrays to create structured data.
-
-```bash
-#!/bin/bash
-
-# Declare an associative array
-declare -A user
-
-# Assign properties
-user[name]="John Doe"
-user[id]=12345
-user[role]="Admin"
-
-# Access properties
-echo "User Name: ${user[name]}"
-echo "User ID: ${user[id]}"
-echo "User Role: ${user[role]}"
-```
-
----
-
-## Other shells
-
-There are many other shells besides PowerShell and Bash, each with its own features and use cases. Some popular ones include:
-
-- sh (Bourne shell)
-- zsh (Z shell)
-- fish (Friendly Interactive Shell)
-- csh (C shell)
-- ksh (Korn shell)
-- ...
-All, slightly different syntax and features.
-
-Also, some Docker images do not have all tools installed. e.g. the hardened Alpine image does not have include `ls` or `cat`, so you have to use `find` instead. PowerShell's built-in cmdlets are always available, regardless of the underlying OS or image, as long as PowerShell is installed.
-
----
-
-## Comparison examples
-
-PowerShell has default aliases many (but not all) common Bash commands, such as:
-
-- cls is Clear-Host
-- ls is Get-ChildItem
-- cat is Get-Content
-- less is Get-Content -Wait
-- grep is Select-String
-- mv is Move-Item
-- rm is Remove-Item
-- pwd is Get-Location
-- echo is Write-Output
-- touch is New-Item -ItemType File
-- mkdir is New-Item -ItemType Directory
-- find is Get-ChildItem -Recurse
-- locate is Get-ChildItem -Recurse
-
-Use `Get-Alias` to see all aliases, and `Get-Command` to see all cmdlets.
-
-Can also create your own aliases with `Set-Alias` or functions for more complex behavior.
-
-These are the equivalent commands for common Bash commands that do not share an alias in PowerShell:
-
-- curl vs. Invoke-WebRequest or Invoke-RestMethod
-- chmod vs. Set-ACL
-- sudo vs. Start-Process -Verb RunAs
-- xargs vs. ForEach-Object
-- awk/sed vs. -replace operator or regex methods in PowerShell
-- diff vs. Compare-Object
 - tar vs. Compress-Archive and Expand-Archive
-
-If just calling other CLIs without parsing output, the 2 are very similar; just a series of CLI calls. The differences become more apparent when you need to parse output, as PowerShell's object-oriented nature allows you to work with structured data rather than just text.
-
----
-
-## Other languages
-
-Show comparisons of PowerShell vs. C#, Ruby, and Python for common tasks, such as:
-
-- Reading/writing files
-- Making HTTP requests
-- Working with JSON
-- Interacting with the filesystem
 
 ---
 
