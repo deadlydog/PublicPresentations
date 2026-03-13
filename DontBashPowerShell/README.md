@@ -4,7 +4,7 @@ This directory contains the slide deck and code for the presentation I gave to [
 
 The presentation is an introduction to PowerShell, covering its features, advantages, how it compares to Bash, and some unintuitive aspects to watch out for.
 
-The [PowerPoint presentation file](src/GeneratedPresentation/DontBashPowerShell.pptx) is generated from the [DontBashPowerShell.md](DontBashPowerShell.md) markdown file using [Marp](https://marp.app/).
+The [PowerPoint presentation file](src/GeneratedPresentation/DontBashPowerShell.pptx) is generated from the [DontBashPowerShell.md](src/DontBashPowerShell.md) markdown file using [Marp](https://marp.app/).
 To generate the PowerPoint file from the markdown, in the VS Code command palette, with the [Marp for VS Code](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode) extension installed, choose `Marp: Export Slide Deck...`.
 
-The [Demos](Demos) directory contains the files with the PowerShell code for the demos shown in the presentation.
+The [Demos](src/Demos/) directory contains the files with the PowerShell code for the demos shown in the presentation.
