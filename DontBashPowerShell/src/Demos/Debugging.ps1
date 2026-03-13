@@ -1,8 +1,11 @@
+# Show using the VS Code debugger to inspect the response returned from the API calls.
+# Show using the mouse to hover over variables, as well as using the Run And Debug pane.
+
 $url = 'https://dogapi.dog/api/v2/facts?limit=3'
 
 try {
 	$restResponse = Invoke-RestMethod -Uri $url
-	# $restResponse.data[0].attributes.body
+	$restResponse
 
 	foreach ($fact in $restResponse.data) {
 		Write-Output $fact.attributes.body
