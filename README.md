@@ -1,4 +1,4 @@
-# Daniel Schroeder's Public Presentations 🗣️
+# 🗣️ Daniel Schroeder's Public Presentations
 
 This repository hosts some public presentations that I have given since 2024, including slide decks, code samples, and other resources, as well as links to video recordings when available.
 
@@ -11,6 +11,7 @@ Check out [my blog](https://blog.danskingdom.com/) and [YouTube channel](https:/
 - [Dev Containers and GitHub Codespaces](/DevContainersAndGitHubCodespaces/ReadMe.md)
 - [Stop manually publishing your PowerShell modules](/StopManuallyPublishingYourPowerShellModules/ReadMe.md)
 - [tiPS Welcome](/tiPSWelcome/ReadMe.md)
+- [Don't Bash, PowerShell!](/DontBashPowerShell/ReadMe.md)
 
 ## ❤️ Donate to support Dan giving more presentations
 
