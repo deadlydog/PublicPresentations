@@ -133,6 +133,16 @@ $process | Select-Object Name, WorkingSet, @{Name = "MemoryInMb"; Expression = {
 
 #----------
 
+# Can view the data in the terminal in different ways.
+Get-Process | Select-Object -First 3 | Format-Table
+
+Get-Process | Select-Object -First 3 | Format-List
+
+# Use -Property * to see all properties of the object.
+Get-Process | Select-Object -First 3 | Format-List -Property *
+
+#----------
+
 # Will error if you call a function that's not defined yet.
 Write-HelloWorld
 
