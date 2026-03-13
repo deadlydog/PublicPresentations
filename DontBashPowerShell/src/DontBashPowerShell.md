@@ -2,7 +2,6 @@
 marp: true
 theme: default
 paginate: true # Show page numbers on slides.
-
 ---
 
 <style>
