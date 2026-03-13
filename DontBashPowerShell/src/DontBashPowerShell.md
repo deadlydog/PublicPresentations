@@ -96,7 +96,7 @@ $Dan = @{
 
 ---
 
-# Audience Survey
+# 🙋 Audience Survey
 
 1. Who has used PowerShell before?
 1. Who has used Bash before?
@@ -174,8 +174,8 @@ Get-Process |
   Sort-Object CPU -Descending
 ```
 
-- Each stage receives **typed objects**
-- Filter/sort by **property name** — no parsing
+- Each stage receives __typed objects__
+- Filter/sort by __property name__ — no parsing
 - Output has structured columns automatically
 
 </div>
@@ -190,7 +190,7 @@ ps aux |
   sort -k2 -rn
 ```
 
-- Each stage receives **a string of characters**
+- Each stage receives __a string of characters__
 - Must know exact column positions to extract data
 - Output format depends on tool and locale
 
@@ -288,7 +288,7 @@ process_data "$data"
 echo "Done"
 ```
 
-- Errors are **silent by default** — must use `set -e`
+- Errors are __silent by default__ — must use `set -e`
 
 </div>
 </div>
@@ -429,7 +429,7 @@ az webapp list --resource-group MyResourceGroup
 
 ---
 
-# What makes PowerShell awesome
+# 😎 What makes PowerShell awesome
 
 - Everything is an object (has properties and methods), not just text
 - Uses consistent `Verb-Noun` naming convention (e.g. `Get-Process`, `Set-Item`)
@@ -469,7 +469,7 @@ az webapp list --resource-group MyResourceGroup
 
 ---
 
-# Typical learning flow
+# 📝 Typical learning flow
 
 1. Easy to get started with, with one-liners
 1. Eventually stitch those together into scripts (`.ps1` file)
@@ -502,121 +502,22 @@ $isTrue -or $isFalse    # Logical OR
 
 ---
 
-## Unintuitive things to watch out for
+# Demos
+
+---
+
+# ⚠️ Unintuitive things to watch out for
 
 - `$_` is the built-in pipeline variable. Alias is `$PSItem`
 - Variables are _not_ case-sensitive
 - Terminating vs. non-terminating errors. Use try/catch and $ErrorActionPreference to control behavior
-- `&` is sometimes required to run executables
-- ForEach-Object vs. foreach loop differences (e.g. ForEach-Object processes items one at a time, while foreach loop processes all items at once)
-- Using Select-Object -ExpandProperty to expand properties that are objects or arrays into the pipeline, rather than returning them as nested objects
+- `&` is sometimes required to run executables (e.g. filepath contains spaces)
+- `ForEach-Object` vs. `foreach` loop differences (e.g. `ForEach-Object` processes items one at a time, while `foreach` loop processes all items at once)
+- Using `Select-Object -ExpandProperty` to expand properties that are objects or arrays into the pipeline, rather than returning them as nested objects
 
 ---
 
-- Can interactively run code against a remote server using `Invoke-Command` or `Enter-PSSession`.
-
-- tar vs. Compress-Archive and Expand-Archive
-
-- Many tools provide PowerShell equivalents that are easier to work with than their REST APIs or CLI tools. e.g. Azure CLI, AWS CLI, etc. have modules for Azure, AWS, etc. that provide cmdlets for interacting with their services.
-
-- Still useful to know Bash
-
----
-
-## When to use PowerShell
-
-- Automation and scripting tasks
-- CI/CD pipelines
-- Glueing together different tools and processes
-- Interacting with APIs. e.g. Azure CLI, AWS CLI, etc.
-  - Modules for Azure, AWS, etc. that provide cmdlets for interacting with their services, which can be easier to work with than their REST APIs or CLI tools.
-
----
-
-## When to use Bash instead of PowerShell
-
-- Mostly Linux administration tasks, especially if you can't guarantee PowerShell is installed.
-- Dockerfiles where you don't want to add PowerShell as a dependency, as it's a larger image.
-- When it makes sense. e.g. it's a team/company standard, or existing code base is already Bash.
-
-It's great to know _BOTH_ PowerShell and Bash!
-
----
-
-## When to use C# (or other) instead of PowerShell
-
-- For more complex applications, especially those that require a GUI or need to be compiled for performance.
-- When you want to create a reusable library or API that can be consumed by other applications.
-
----
-
-## Downsides of PowerShell
-
-- Requires installation on non-Windows platforms, which can be a barrier in some environments.
-- Windows PowerShell vs. PowerShell Core
-- Dependency on .NET versions
-  - Requires removing old .NET versions when they fall out of support.
-- No compiler, so typos and syntax errors are often only caught at runtime.
-
----
-
-## Demos
-
-Do the first 15 - 20 minutes as a presentation, then 15 - 20 minutes of demos
-
-- `Get-Alias` to see all aliases
-- `Get-Command` to see all cmdlets and what module they belong to
-- Select-Object -First 10
-- `Select-Object -Property Name, Version` to select specific properties of an object
-- Select-Object -Property *
-  - `select *` as shorthand
-- `Select-Object -ExpandProperty` to expand a property that is an object or array into the pipeline
-- `Select-Object -GroupBy` to group objects by a property and perform aggregate operations on them
-  - Do a Sort before GroupBy so that it sorts then groups, otherwise you might end up with a lot of groups as it streams results to the GroupBy cmdlet. (filter left, format right)
-- Format-Table vs. Format-List to control how output is displayed
-- Select-String to search for text in files or output. Use `-AllMatches` to find all matches in a line.
-  - Can also be ran against a directory and it will search all files in that directory and subdirectories.
-- `Out-GridView -PassThru` to select items from a list of objects and pass them downstream in the pipeline.
-
----
-
-What is the difference between these two code snippets?
-
-```powershell
-Get-Process | Select-String 'chrome' | Select-Object -First 10
-```
-
-```powershell
-ps | sls 'chrome' | select -First 10
-```
-
-Nothing, they are equivalent.
-
----
-
-## Splatting
-
-```powershell
-Send-MailMessage -To me@mydomain.com -From me@mydomain.com -Subject "Hi" `
-    -Body "Hello" -SmtpServer smpthost -ErrorAction SilentlyContinue
-```
-
-```powershell
-$MailMessage = @{
-    To = "me@mycompany.com"
-    From = "me@mycompany.com"
-    Subject = "Hi"
-    Body = "Hello"
-    Smtpserver = "smtphost"
-    ErrorAction = "SilentlyContinue"
-}
-
-Send-MailMessage @MailMessage
-```
-
----
-
-## Installing modules
+# 📦 Installing modules
 
 Super easy to install modules from the PowerShell Gallery: https://www.powershellgallery.com
 
@@ -632,12 +533,78 @@ Update them easily too:
 Update-Module -Name tiPS
 ```
 
+<br />
+
+Update all modules:
+
+```powershell
+Update-Module
+```
+
 ---
 
-# Awesome modules
+# 🌟 Awesome modules
 
-- Posh-Git - Git prompt status and tab completion for Git commands.
-- ImportExcel - Read and write Excel files without needing Excel installed.
-- tiPS - Get a PowerShell tip in your terminal every day or week.
-- Pester - Unit testing framework for PowerShell.
-- PSReadLine - Enhanced command-line editing experience with syntax highlighting, multi-line editing, and more.
+- Posh-Git - Git prompt status and tab completion for Git commands
+- ImportExcel - Read and write Excel files without needing Excel installed
+- tiPS - Get a PowerShell tip in your terminal every day or week
+- Pester - Unit testing framework for PowerShell
+- PSReadLine - Enhanced command-line editing experience with syntax highlighting, multi-line editing, and more
+
+---
+
+# ⚡ When to use PowerShell
+
+- Automation and scripting tasks
+- Managing many devices or servers, especially in a Windows environment
+- CI/CD pipelines
+- Glueing together different tools, APIs, and processes
+- Interacting with APIs
+  - Many companies provide PowerShell equivalents that are easier to work with than their REST APIs or CLI tools.
+    - `Az` module instead of Azure CLI
+    - `AWS.Tools` module instead of AWS CLI
+
+---
+
+# 🐧 When to use Bash instead of PowerShell
+
+- Linux or MacOS administration tasks where you can't guarantee PowerShell is installed everywhere
+- Dockerfiles where you don't want to add PowerShell as a dependency, as it's a larger image
+- When it makes sense
+  - e.g. It's a team/company standard
+  - e.g. Existing code base is already Bash.
+
+It's great to know _BOTH_ PowerShell and Bash!
+
+---
+
+# When to use C# (or other) instead of PowerShell
+
+- For large applications with a lot of code
+  - Compiler helps catch many errors and makes refactoring safe
+- GUI applications
+- Applications that need to be compiled for performance
+
+---
+
+# ⚠️ Downsides of PowerShell
+
+- Requires installation on non-Windows platforms, which can be a barrier in some environments
+- Windows PowerShell vs. PowerShell confusion
+- Dependency on .NET versions
+  - Requires removing old .NET versions when they fall out of support
+- No compiler, so typos and syntax errors can get missed until runtime
+  - Also makes refactoring tougher
+
+---
+
+# 📚 Resources
+
+- 📃 __PowerShell Docs__ — [learn.microsoft.com/powershell](https://learn.microsoft.com/en-us/powershell/)
+- 📦 __PowerShell Gallery__ — [powershellgallery.com](https://www.powershellgallery.com/)
+- 👥 __PowerShell User Groups__ - [rtpsug.com](https://rtpsug.com/) and [Pacific PS UG Meetup](https://www.meetup.com/pacific-powershell-user-group/)
+- 🎙️ __PowerShell Podcast__ — [powershellpodcast.com](https://powershellpodcast.com/)
+- 📰 __PowerShell Subreddit__ — [reddit.com/r/PowerShell](https://www.reddit.com/r/PowerShell/)
+- 🎮 __PowerShell Discord__ - [discord.com/invite/powershell](https://discord.com/invite/powershell)
+- 🎮 __PDQ Discord__ - [discord.gg/CzKtEY8W](https://discord.gg/CzKtEY8W)
+- 📺 __PowerShell Wednesdays YouTube Channel__ - [youtube.com/@pdq](https://www.youtube.com/playlist?list=PL1mL90yFExsix-L0havb8SbZXoYRPol0B)
