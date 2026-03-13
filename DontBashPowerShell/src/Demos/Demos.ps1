@@ -73,8 +73,19 @@ Get-Process | Select-Object -First 1 -Property *
 1..10 | ForEach-Object { Write-Output "Number: $PSItem" }
 
 # % is an alias for ForEach-Object, and $_ is an alias for $PSItem.
+1..10 | % { $_ }
+
+# Can also use a foreach loop when you don't need the pipeline / streaming.
+[int[]] $numbers = 1..10
+foreach ($number in $numbers) {
+	$number
+}
+
+#----------
+
+# Can access variables outside the loop scope.
 [int] $sum = 0
-1..10 | % { $sum += $_ }
+1..10 | ForEach-Object { $sum += $_ }
 "Sum: $sum"
 
 #----------
@@ -331,6 +342,16 @@ $people = $csvData |
 	Select-Object 'First Name', 'Last Name', 'Email'
 $people
 $people | ConvertTo-Json | Out-File -Path 'C:\Temp\Sara.json' -Encoding UTF8
+
+#----------
+
+# Zip up the temp directory
+$sourcePath = 'C:\Temp'
+$destinationPath = 'C:\Temp\Subfolder.zip'
+Compress-Archive -Path $sourcePath -DestinationPath $destinationPath -Force
+
+# Unzip the file back to a folder
+Expand-Archive -Path $destinationPath -DestinationPath 'C:\Temp\Unzipped'
 
 #----------
 
