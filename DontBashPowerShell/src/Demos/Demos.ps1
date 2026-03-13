@@ -368,6 +368,27 @@ Expand-Archive -Path $destinationPath -DestinationPath 'C:\Temp\Unzipped'
 
 #----------
 
+# Can use the backtick (`) character to split long lines.
+Send-MailMessage -To me@mydomain.com `
+	-From me@mydomain.com `
+	-Subject "Hi" `
+	-Body "Hello" `
+	-SmtpServer smpthost `
+	-ErrorAction SilentlyContinue
+
+# Can use Splatting to make many parameters more readable.
+$MailMessage = @{
+	To = "me@mycompany.com"
+	From = "me@mycompany.com"
+	Subject = "Hi"
+	Body = "Hello"
+	Smtpserver = "smtphost"
+	ErrorAction = "SilentlyContinue"
+}
+Send-MailMessage @MailMessage
+
+#----------
+
 # Run commands interactively on remote computers using Enter-PSSession.
 Enter-PSSession -ComputerName 'Server1.domain.com'
 
