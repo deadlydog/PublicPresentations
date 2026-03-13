@@ -334,11 +334,18 @@ $people | ConvertTo-Json | Out-File -Path 'C:\Temp\Sara.json' -Encoding UTF8
 
 #----------
 
+# Run commands interactively on remote computers using Enter-PSSession.
+Enter-PSSession -ComputerName 'Server1.domain.com'
+
+
 # Run commands on remote computers using Invoke-Command.
 $scriptBlock = {
 	Write-Output "Hello from $env:COMPUTERNAME"
+	[bool] $fileExists = Test-Path -Path 'C:\Temp\SomeFile.txt'
+	Write-Output "Does C:\Temp\SomeFile.txt exist? $fileExists"
 }
 Invoke-Command -ScriptBlock $scriptBlock -ComputerName 'Server1.domain.com', 'Server2.domain.com', 'Server3.domain.com'
+
 
 # Some commands have built-in remoting capabilities, such as Restart-Computer.
 Restart-Computer -ComputerName 'Server1.domain.com', 'Server2.domain.com', 'Server3.domain.com' -Force
