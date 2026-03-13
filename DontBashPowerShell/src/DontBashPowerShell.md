@@ -338,8 +338,8 @@ mv tmp.json config.json
 - Everything is an object (has properties and methods), not just text
 - Uses consistent `Verb-Noun` naming convention (e.g. `Get-Process`, `Set-Item`)
   - [Approved verbs](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands) makes cmdlet names predictable and discoverable
+- Intellisense, autocomplete, and tab completion in the terminal and IDE
 - Dynamic or strongly typed, so you can choose the level of type safety you want
-- Tab completion for cmdlets and parameters
 - Rich set of built-in cmdlets out-of-the-box, plus access to .NET libraries
 - Great for running commands on remote machines
 - Tons of community modules available via [PowerShellGallery.com](https://www.powershellgallery.com)
@@ -421,6 +421,10 @@ $isTrue -or $isFalse    # Logical OR
 - Can interactively run code against a remote server using `Invoke-Command` or `Enter-PSSession`.
 
 - tar vs. Compress-Archive and Expand-Archive
+
+- Many tools provide PowerShell equivalents that are easier to work with than their REST APIs or CLI tools. e.g. Azure CLI, AWS CLI, etc. have modules for Azure, AWS, etc. that provide cmdlets for interacting with their services.
+
+- Still useful to know Bash
 
 ---
 
