@@ -33,9 +33,14 @@ paginate: true # Show page numbers on slides.
 
   .col-ps  { border-left: 4px solid #0078d4; padding-left: 12px; }
   .col-sh  { border-left: 4px solid #4eaa25; padding-left: 12px; }
+  .col-py  { border-left: 4px solid #246c04; padding-left: 12px; }
+  .col-rb  { border-left: 4px solid #e41616; padding-left: 12px; }
 
   .col-ps h3 { color: #1d4ed8; }
   .col-sh h3 { color: #15803d; }
+  .col-py h3 { color: #166534; }
+  .col-rb h3 { color: #b91c1c; }
+
 </style>
 
 <!-- _class: lead -->
@@ -333,6 +338,97 @@ mv tmp.json config.json
 
 ---
 
+# Code Comparison: Working with Files
+
+<div class="col-py">
+
+### Python
+
+```python
+from pathlib import Path; from shutil import copy2 # Edited to fit slide
+from datetime import datetime, timedelta
+import json
+
+archive = Path("./archive")
+archive.mkdir(exist_ok=True)
+
+cutoff = datetime.now() - timedelta(days=30)
+for path in Path("./logs").rglob("*"):
+    if path.is_file() and datetime.fromtimestamp(path.stat().st_mtime) < cutoff:
+        copy2(path, archive / path.name)
+
+config_path = Path("config.json")
+config = json.loads(config_path.read_text(encoding="utf-8"))
+config["version"] = "2.0"
+config_path.write_text(json.dumps(config, indent=2), encoding="utf-8")
+```
+
+</div>
+
+---
+
+# Code Comparison: Working with Files
+
+<div class="col-rb">
+
+### Ruby
+
+```ruby
+require "fileutils"; require "json"; require "time" # Edited to fit slide
+
+archive = "./archive"
+FileUtils.mkdir_p(archive)
+
+cutoff = Time.now - (30 * 24 * 60 * 60)
+Dir.glob("./logs/**/*", File::FNM_DOTMATCH).each do |path|
+  next unless File.file?(path)
+  next unless File.mtime(path) < cutoff
+  FileUtils.cp(path, File.join(archive, File.basename(path)))
+end
+
+config_path = "config.json"
+config = JSON.parse(File.read(config_path))
+config["version"] = "2.0"
+File.write(config_path, JSON.pretty_generate(config))
+```
+
+</div>
+
+---
+
+# Code Comparison: Running CLIs
+
+<div class="columns">
+<div class="col-ps">
+
+### PowerShell
+
+```powershell
+dotnet restore MySolution.sln
+dotnet publish MyProject.csproj -c Release
+
+az webapp list --resource-group MyResourceGroup
+```
+
+</div>
+<div class="col-sh">
+
+### Bash
+
+```bash
+dotnet restore MySolution.sln
+dotnet publish MyProject.csproj -c Release
+
+az webapp list --resource-group MyResourceGroup
+```
+
+</div>
+</div>
+
+- If not capturing, parsing, or processing output, PowerShell and Bash look very similar
+
+---
+
 # What makes PowerShell awesome
 
 - Everything is an object (has properties and methods), not just text
@@ -411,8 +507,7 @@ $isTrue -or $isFalse    # Logical OR
 - `$_` is the built-in pipeline variable. Alias is `$PSItem`
 - Variables are _not_ case-sensitive
 - Terminating vs. non-terminating errors. Use try/catch and $ErrorActionPreference to control behavior
-- Automatic unrolling of arrays in certain contexts (e.g. when returning an array)
-- Set-StrictMode to enforce stricter coding practices and catch common mistakes
+- `&` is sometimes required to run executables
 - ForEach-Object vs. foreach loop differences (e.g. ForEach-Object processes items one at a time, while foreach loop processes all items at once)
 - Using Select-Object -ExpandProperty to expand properties that are objects or arrays into the pipeline, rather than returning them as nested objects
 
