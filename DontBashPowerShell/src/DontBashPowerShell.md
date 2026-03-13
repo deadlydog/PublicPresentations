@@ -608,3 +608,7 @@ It's great to know _BOTH_ PowerShell and Bash!
 - 🎮 __PowerShell Discord__ - [discord.com/invite/powershell](https://discord.com/invite/powershell)
 - 🎮 __PDQ Discord__ - [discord.gg/CzKtEY8W](https://discord.gg/CzKtEY8W)
 - 📺 __PowerShell Wednesdays YouTube Channel__ - [youtube.com/@pdq](https://www.youtube.com/playlist?list=PL1mL90yFExsix-L0havb8SbZXoYRPol0B)
+
+<br />
+
+- __Daniel Schroeders' blog with socials__ - [blog.danskingdom.com](https://blog.danskingdom.com)
