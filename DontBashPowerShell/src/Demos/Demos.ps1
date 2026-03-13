@@ -2,6 +2,9 @@
 # Intellisense and tab completion work in the console, scripts, and even here in the markdown file.
 # Use Ctrl+Space to see all available completions at any point.
 
+# Exit script in case I accidentally run the whole thing.
+return
+
 # See all available commands.
 Get-Command
 
