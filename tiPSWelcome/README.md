@@ -1,6 +1,6 @@
 # tiPS Welcome Presentation
 
-The slide deck for the presentation I gave to [the Pacific PowerShell User Group on June 12, 2024](https://www.meetup.com/pacific-powershell-user-group/events/301530283/).
+Here is [the slide deck](src/tiPS%20Welcome.pptx) for the presentation I gave to [the Pacific PowerShell User Group on June 12, 2024](https://www.meetup.com/pacific-powershell-user-group/events/301530283/).
 The presentation was recorded, but unfortunately the audio was not captured so the video was scrapped.
 
 The presentation is an overview of [the tiPS PowerShell module](https://github.com/deadlydog/PowerShell.tiPS), and discussions around some of the lessons I learned while developing it.

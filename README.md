@@ -8,10 +8,10 @@ Check out [my blog](https://blog.danskingdom.com/) and [YouTube channel](https:/
 
 ## Presentations
 
-- [Dev Containers and GitHub Codespaces](/DevContainersAndGitHubCodespaces/README.md)
-- [Stop manually publishing your PowerShell modules](/StopManuallyPublishingYourPowerShellModules/README.md)
-- [tiPS Welcome](/tiPSWelcome/README.md)
 - [Don't Bash, PowerShell!](/DontBashPowerShell/README.md)
+- [tiPS Welcome](/tiPSWelcome/README.md)
+- [Stop manually publishing your PowerShell modules](/StopManuallyPublishingYourPowerShellModules/README.md)
+- [Dev Containers and GitHub Codespaces](/DevContainersAndGitHubCodespaces/README.md)
 
 ## ❤️ Donate to support Dan giving more presentations
 
